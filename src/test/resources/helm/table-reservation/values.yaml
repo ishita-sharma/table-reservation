@@ -1,0 +1,8 @@
+# Default values for table-reservation.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+service:
+  boot: false
+  docker:
+    name: table-reservation
+    tag:  LOCAL-SNAPSHOT
