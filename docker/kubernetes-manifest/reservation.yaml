@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    service.name: reservation
+  name: reservation
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      service.name: reservation
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        service.name: reservation
+    spec:
+      containers:
+        - env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: LOCAL-KUBERNETES
+          image: table-reservation:LOCAL-SNAPSHOT
+          livenessProbe:
+            exec:
+              command:
+                - wget
+                - -qO-
+                - http://localhost:8080/reserve/restaurant/testid/tables
+            failureThreshold: 50
+            periodSeconds: 5
+            timeoutSeconds: 2
+          name: reservation
+          resources: {}
+      restartPolicy: Always
+status: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    service.name: reservation
+  name: reservation
+spec:
+  ports:
+    - name: "8080"
+      port: 8080
+      targetPort: 8080
+  selector:
+    service.name: reservation
+status:
+  loadBalancer: {}
