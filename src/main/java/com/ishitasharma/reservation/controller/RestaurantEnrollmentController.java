@@ -1,6 +1,8 @@
 package com.ishitasharma.reservation.controller;
 
-import com.ishitasharma.reservation.model.Restaurant;
+import com.ishitasharma.reservation.model.dto.request.CreateRestaurantRequest;
+import com.ishitasharma.reservation.model.dto.response.RestaurantResponse;
+import com.ishitasharma.reservation.service.RestaurantEnrollmentService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,12 +13,24 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/enroll")
+@RequestMapping("/restaurants")
 public class RestaurantEnrollmentController {
 
-    @GetMapping("/restaurants")
+    private final RestaurantEnrollmentService restaurantEnrollmentService;
+
+    public RestaurantEnrollmentController(RestaurantEnrollmentService restaurantEnrollmentService) {
+        this.restaurantEnrollmentService = restaurantEnrollmentService;
+    }
+
+    @GetMapping("/")
     public ResponseEntity<String> getEnrolledRestaurants() {
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PostMapping("/")
+    public ResponseEntity<RestaurantResponse> enrollRestaurant(@RequestBody CreateRestaurantRequest createRestaurantRequest) {
+        RestaurantResponse response = restaurantEnrollmentService.enrollNewRestaurant(createRestaurantRequest);
+        return new ResponseEntity<RestaurantResponse>(response, HttpStatus.CREATED);
     }
 
     @GetMapping("/restaurant/{name}")
@@ -29,13 +43,8 @@ public class RestaurantEnrollmentController {
         return "enrolled restaurant";
     }
 
-    @PostMapping("/restaurant/")
-    public ResponseEntity<String> enrollRestaurant(@RequestBody Restaurant restaurant) {
-        return new ResponseEntity<String>(HttpStatus.CREATED);
-    }
-
     @PutMapping("/restaurant/{id}")
-    public String updateRestaurant(@RequestBody Restaurant restaurant) {
+    public String updateRestaurant(@RequestBody CreateRestaurantRequest createRestaurantRequest) {
         return "";
     }
 }

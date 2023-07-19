@@ -1,4 +1,4 @@
-package com.ishitasharma.reservation.model;
+package com.ishitasharma.reservation.model.dto.request;
 
 import lombok.Getter;
 import lombok.Setter;
