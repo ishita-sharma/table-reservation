@@ -1,0 +1,44 @@
+@startuml
+title Table Reservation System Use Case - Restaurant
+skinparam BoxPadding 30
+skinparam maxMessageSize 400
+
+
+/'definitions'/
+actor "Restaurant Manager" as manager #F2F4F9
+
+participant "Table Reservation Application" as application #F2F4F9
+
+database "Restaurant Database" as db
+
+autonumber
+/'interactions'/
+manager -> application : [POST] enroll new restaurant
+application -> db : save new restaurant database
+db -> application : saved entity is returned
+application -> manager : [201] restaurant details \nand generated restaurant id
+|||
+|||
+|||
+|||
+manager -> application : [GET] restaurant with id
+application -> db : fetch by given id
+db -> application : fetched entity is returned
+application -> manager : [200] restaurant details
+|||
+|||
+|||
+|||
+manager -> application : [PUT] update restaurant details by id
+application -> db : fetch and update restaurant details by given id
+db -> application : updated entity is returned
+application -> manager : [200] updated restaurant details
+|||
+|||
+|||
+|||
+manager -> application : [DELETE] delete/delist restaurant details by id
+application -> db : fetch and delete restaurant details by given id
+db -> application : successfully deleted
+application -> manager : [200] restaurant id
+@enduml

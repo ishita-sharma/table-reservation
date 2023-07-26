@@ -5,6 +5,6 @@ spring:
     password: password
     url: jdbc:mysql://db:3306/table-reservation
 
-logging:
-  level:
-    root: debug
+#logging:
+#  level:
+#    root: debug

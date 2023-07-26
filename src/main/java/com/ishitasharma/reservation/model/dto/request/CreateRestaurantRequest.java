@@ -11,4 +11,5 @@ public class CreateRestaurantRequest {
     private String name;
     private RestaurantCategory category;
     private Cuisine cuisine;
+   // private Address address;
 }

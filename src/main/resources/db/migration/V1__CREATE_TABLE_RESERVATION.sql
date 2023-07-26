@@ -7,3 +7,18 @@ CREATE TABLE RESTAURANT (
     updated_at DATETIME NOT NULL,
     PRIMARY KEY (id)
 );
+
+CREATE TABLE RESTAURANT_TABLE (
+    id INT NOT NULL AUTO_INCREMENT,
+    restaurant_id INT NOT NULL,
+    table_number INT NOT NULL,
+    number_of_seats INT NOT NULL,
+    type ENUM('HIGHTABLE', 'NORMAL', 'BOOTH') NOT NULL,
+    created_at DATETIME NOT NULL,
+    updated_at DATETIME NOT NULL,
+    PRIMARY KEY (id),
+    CONSTRAINT fk_customer FOREIGN KEY (restaurant_id)
+    REFERENCES RESTAURANT(id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
+);
