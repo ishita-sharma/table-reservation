@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/usr/bin/zsh
 helm uninstall table-reservation --wait
 ./gradlew bJ
 docker build -t table-reservation:LOCAL-SNAPSHOT .

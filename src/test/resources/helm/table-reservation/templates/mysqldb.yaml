@@ -26,6 +26,8 @@ spec:
               value: root_password
             - name: MYSQL_USER
               value: user
+            - name: MYSQL_HOST
+              value: 0.0.0.0
           image: mysql
           livenessProbe:
             exec:
